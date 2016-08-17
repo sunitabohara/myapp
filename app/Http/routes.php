@@ -30,3 +30,12 @@ Route::group(['namespace' => 'Front'], function () {
 	Route::get('sidebar', 'DashboardController@sidebar')->name('front.sidebar');
 });
 
+
+Route::auth();
+
+Route::get('/home', 'HomeController@index');
+
+Route::group(['namespace' => 'Admin','prefix'=>'admin'], function () {
+
+	Route::get('user', 'UserController@index')->name('admin.index');
+});
