@@ -57,7 +57,8 @@ class UserRepository extends BaseRepository
      */
     public function store($inputs)
     {
-        $input['password'] = bcrypt($inputs['password']);
+        $inputs['password'] = bcrypt($inputs['password']);
+
         try {
             DB::beginTransaction();
             $user =  $this->model->create($inputs);
@@ -87,7 +88,7 @@ class UserRepository extends BaseRepository
     {
 
 
-        $input['password'] = bcrypt($inputs['password']);
+        $inputs['password'] = bcrypt($inputs['password']);
         try {
             DB::beginTransaction();
             $user = $this->getById($id);

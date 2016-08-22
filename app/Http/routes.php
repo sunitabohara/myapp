@@ -13,11 +13,14 @@
 
 Route::get('/', function () {
 
-
-    return view('welcome');
+    return Redirect::route('front.dashboard');
+//    return view('welcome');
 });
 
-Route::group(['namespace' => 'Front'], function () {
+Route::get('files/get/{source}/{filename}', ['as' => 'files', 'uses' => 'FileEntryController@get']);
+Route::get('files/images/{source}/{id}/{filename}', ['as' => 'images', 'uses' => 'FileEntryController@image']);
+
+Route::group(['namespace' => 'Front','middleware' => ['auth']], function () {
 
 	// Route::resource('dashboard','DashboardController');
 	Route::get('dashboard', 'DashboardController@index')->name('front.dashboard');
@@ -35,7 +38,13 @@ Route::auth();
 
 Route::get('/home', 'HomeController@index');
 
-Route::group(['namespace' => 'Admin','prefix'=>'admin'], function () {
+Route::group(['namespace' => 'Admin','prefix'=>'admin', 'middleware' => ['auth']], function () {
 
-	Route::get('user', 'UserController@index')->name('admin.index');
+	/*Route::get('user', 'UserController@index')->name('users.index');
+    Route::get('user/create', 'UserController@create')->name('users.create');
+    Route::post('user', 'UserController@create')->name('admin.users.store');*/
+    Route::resource('users','UserController');
+    Route::get('users/{id}/upload', 'UserController@upload')->name('admin.users.upload');
+    Route::post('users', 'UserController@storeImage')->name('admin.users.storeImage');
+
 });

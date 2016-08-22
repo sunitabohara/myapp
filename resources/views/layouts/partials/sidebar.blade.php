@@ -8,9 +8,26 @@
         @if (! Auth::guest())
             <div class="user-panel">
                 <div class="pull-left image">
-                    <img src="{{asset('/img/user2-160x160.jpg')}}" class="img-circle" alt="User Image" />
+                @php
+                $id =Auth::user()->id;
+                 $url ='//localhost/myapp/public/files/images/users/'.$id.'/image.jpg';
+                 $path = getFullFolderDirPathFromId('users', $id);
+                 $img_thum_path 	= $path . '/profile/thumb/';
+                 $img_path 	= $path . '/profile/';
+                 $picname 	= 'image.jpg';
+                @endphp
+
+               @if (File::exists($img_thum_path.$picname ))
+                      <img src="{{asset('//localhost/myapp/public/files/images/users/'.$id.'/image.jpg?thumb')}}" class="img-circle" alt="User Image" />
+               @else
+                        <img src="{{asset('/img/user2-160x160.jpg')}}" class="img-circle" alt="User Image" />
+               @endif
+
+
                 </div>
+
                 <div class="pull-left info">
+
                     <p>{{ Auth::user()->name }}</p>
                     <!-- Status -->
                     <a href="#"><i class="fa fa-circle text-success"></i> {{ trans('adminlte_lang::message.online') }}</a>

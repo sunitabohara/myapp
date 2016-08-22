@@ -56,7 +56,7 @@
                     <!-- Menu toggle button -->
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         <i class="fa fa-bell-o"></i>
-                        <span class="label label-warning">10</span>
+                        <span class="label label-warning">no notif</span>
                     </a>
                     <ul class="dropdown-menu">
                         <li class="header">{{ trans('adminlte_lang::message.notifications') }}</li>
@@ -78,7 +78,7 @@
                     <!-- Menu Toggle Button -->
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         <i class="fa fa-flag-o"></i>
-                        <span class="label label-danger">9</span>
+                        <span class="label label-danger">bsdb</span>
                     </a>
                     <ul class="dropdown-menu">
                         <li class="header">{{ trans('adminlte_lang::message.tasks') }}</li>
@@ -117,14 +117,32 @@
                         <!-- Menu Toggle Button -->
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <!-- The user image in the navbar-->
+                            @php
+                                            $id =Auth::user()->id;
+                                             $url ='//localhost/myapp/public/files/images/users/'.$id.'/image.jpg';
+                                             $path = getFullFolderDirPathFromId('users', $id);
+                                             $img_thum_path 	= $path . '/profile/thumb/';
+                                             $img_path 	= $path . '/profile/';
+                                             $picname 	= 'image.jpg';
+                                            @endphp
+
+                                           @if (File::exists($img_thum_path.$picname ))
+
+                                                  <img src="{{asset('//localhost/myapp/public/files/images/users/'.$id.'/image.jpg?thumb')}}" class="user-image" alt="User Image"/>
+                                           @else
                             <img src="{{asset('/img/user2-160x160.jpg')}}" class="user-image" alt="User Image"/>
+                            @endif
                             <!-- hidden-xs hides the username on small devices so only the image appears. -->
                             <span class="hidden-xs">{{ Auth::user()->name }}</span>
                         </a>
                         <ul class="dropdown-menu">
                             <!-- The user image in the menu -->
                             <li class="user-header">
-                                <img src="{{asset('/img/user2-160x160.jpg')}}" class="img-circle" alt="User Image" />
+                                @if (File::exists($img_thum_path.$picname ))
+                                    <img src="{{asset('//localhost/myapp/public/files/images/users/'.$id.'/image.jpg?thumb')}}" class="img-circle" alt="User Image" />
+                                @else
+                                    <img src="{{asset('/img/user2-160x160.jpg')}}" class="img-circle" alt="User Image" />
+                                @endif
                                 <p>
                                     {{ Auth::user()->name }}
                                     <small>{{ trans('adminlte_lang::message.login') }} Nov. 2012</small>
