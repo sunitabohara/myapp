@@ -52,6 +52,7 @@
 										<td>
 
 										    <a class="btn btn-primary" href="{{ route('admin.users.edit',$user->id) }}">Edit</a>
+										    <a class="btn btn-warning" href="{{ route('admin.users.upload',$user->id) }}">Image Upload</a>
 										    <a class="btn btn-small btn-danger" id = 'click' value="{{$user->id}}" href="#">Delete</a>
 										</td>
 									</tr>

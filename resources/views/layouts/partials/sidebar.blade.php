@@ -18,9 +18,9 @@
                 @endphp
 
                @if (File::exists($img_thum_path.$picname ))
-                      <img src="{{asset('//localhost/myapp/public/files/images/users/'.$id.'/image.jpg?thumb')}}" class="img-circle" alt="User Image" />
+                     <a href="{{ route('admin.users.upload',$id) }}"><img src="{{asset('//localhost/myapp/public/files/images/users/'.$id.'/image.jpg?thumb')}}" height="42" width="42" class="img-circle" alt="User Image" /></a>
                @else
-                        <img src="{{asset('/img/user2-160x160.jpg')}}" class="img-circle" alt="User Image" />
+                        <a href="{{ route('admin.users.upload',$id) }}"><img src="{{asset('/img/user2-160x160.jpg')}}" height="42" width="42" class="img-circle" alt="User Image" /></a>
                @endif
 
 

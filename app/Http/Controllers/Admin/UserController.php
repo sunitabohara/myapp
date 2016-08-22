@@ -158,17 +158,9 @@ class UserController extends Controller
             $path = getFullFolderDirPathFromId('users',$id);
             getFullFolderDirPathFromId('users', $id, false);
             Session::push('imgPath' , getFullFolderDirPathFromId('users', $id, false));
-            /*$validator = Validator::make(array('file' => $file), $rules);
 
-            if ($validator->passes()) {
-
-                $extension = $file->getClientOriginalExtension();
-                //call this functiion to save image
-                saveImageWithThumb($file, $folder_path . '/profile/', ['name' => 'image', 'ext' => $extension, 'resize_w' => 140, 'resize_h' => 140]);
-            }
-            else {
-                return redirect('admin/users/')->withErrors(['Use Image uploaded successfully. But picture could not uploaded.']);
-            }*/
+            return redirect()->route('admin.users.upload', ['id' => $id])
+                ->with('success','User image uploaded  successfully');
         }
     }
 }

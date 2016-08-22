@@ -2,7 +2,7 @@
 <header class="main-header">
 
     <!-- Logo -->
-    <a href="{{ url('/home') }}" class="logo">
+    <a href="{{ url('/') }}" class="logo">
         <!-- mini logo for sidebar mini 50x50 pixels -->
         <span class="logo-mini"><b>A</b>LT</span>
         <!-- logo for regular state and mobile devices -->
@@ -15,8 +15,23 @@
         <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
             <span class="sr-only">{{ trans('adminlte_lang::message.togglenav') }}</span>
         </a>
+       <div class=" span6 collapse navbar-collapse pull-left" id="bs-example-navbar-collapse-1">
+                       <ul class="nav navbar-nav navbar-right">
+                           <li>
+                               <a href="{{ url('admin/users') }}#users" id="about-link">Users</a>
+                           </li>
+                           <li>
+                               <a href="{{ url('/service') }}#service">Services</a>
+                           </li>
+                           <li>
+                               <a href="{{ url('/contact') }}#contact">Contact</a>
+                           </li>
+
+
+                       </ul>
+                   </div>
         <!-- Navbar Right Menu -->
-        <div class="navbar-custom-menu">
+        <div class="span6 navbar-custom-menu">
             <ul class="nav navbar-nav">
                 <!-- Messages: style can be found in dropdown.less-->
                 <li class="dropdown messages-menu">

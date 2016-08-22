@@ -33,6 +33,11 @@ Route::group(['namespace' => 'Front','middleware' => ['auth']], function () {
 	Route::get('sidebar', 'DashboardController@sidebar')->name('front.sidebar');
 });
 
+//for page refresh
+header('Expires: Sun, 22 Aug 2016 00:00:00 GMT');
+header('Cache-Control: no-store, no-cache, must-revalidate');
+header('Cache-Control: post-check=0, pre-check=0', FALSE);
+header('Pragma: no-cache');
 
 Route::auth();
 
@@ -40,9 +45,6 @@ Route::get('/home', 'HomeController@index');
 
 Route::group(['namespace' => 'Admin','prefix'=>'admin', 'middleware' => ['auth']], function () {
 
-	/*Route::get('user', 'UserController@index')->name('users.index');
-    Route::get('user/create', 'UserController@create')->name('users.create');
-    Route::post('user', 'UserController@create')->name('admin.users.store');*/
     Route::resource('users','UserController');
     Route::get('users/{id}/upload', 'UserController@upload')->name('admin.users.upload');
     Route::post('users', 'UserController@storeImage')->name('admin.users.storeImage');
