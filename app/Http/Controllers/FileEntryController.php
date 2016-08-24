@@ -96,4 +96,44 @@ class FileEntryController extends Controller
 
         return 0;
     }
+
+    public function frontImage($path,$imgName)
+    {
+        $img_path = public_path().'/'.$path.'/'.$imgName;
+//        return $img_path;
+        if (File::exists($img_path)) {
+            $bytes 		= File::size($img_path);
+            $contents 	= File::get($img_path);
+            $mime 		= File::mimeType($img_path);
+
+            $headers = [
+                'Content-Type'	 => $mime,
+                'Content-Length' => $bytes
+            ];
+
+            $response 	= Response::make( $contents, 200, $headers );
+
+            $filetime 	= filemtime($img_path);
+            $etag 		= md5($filetime);
+            $time 		= date('r', $filetime);
+            $expires 	= date('r', $filetime + 3600);
+
+            $response->setEtag($etag);
+            $response->setLastModified( new \DateTime($time) );
+            $response->setExpires( new \DateTime($expires) );
+            $response->setPublic();
+            return $response;
+           /* if($response->isNotModified($request)) {
+                // Return empty response if not modified
+                return $response;
+            }
+            else {
+                // Return file if first request / modified
+                $response->prepare($request);
+                return $response;
+            }*/
+        }
+
+        return 0;
+    }
 }

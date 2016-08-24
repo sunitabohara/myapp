@@ -19,6 +19,7 @@ Route::get('/', function () {
 
 Route::get('files/get/{source}/{filename}', ['as' => 'files', 'uses' => 'FileEntryController@get']);
 Route::get('files/images/{source}/{id}/{filename}', ['as' => 'images', 'uses' => 'FileEntryController@image']);
+Route::get('files/{source}/{filename}', ['as' => 'images', 'uses' => 'FileEntryController@frontImage']);
 
 Route::group(['namespace' => 'Front','middleware' => ['auth']], function () {
 
@@ -48,5 +49,6 @@ Route::group(['namespace' => 'Admin','prefix'=>'admin', 'middleware' => ['auth']
     Route::resource('users','UserController');
     Route::get('users/{id}/upload', 'UserController@upload')->name('admin.users.upload');
     Route::post('users', 'UserController@storeImage')->name('admin.users.storeImage');
+    Route::get('images/dashboard', 'ImageController@dashboardImage')->name('admin.images.dashboard');
 
 });
